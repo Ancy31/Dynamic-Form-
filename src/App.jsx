@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { APP_ROUTES } from './Routes';
+import { APP_ROUTES } from './routes';
 import { NotFound } from './pages/NotFound';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
