@@ -6,29 +6,35 @@ import { SiGoogleforms } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
-  
+  const [isModal, setIsModal] = useState(false);
+  const formData = JSON.parse(localStorage.getItem('dynamicForm')) || [];
+  const [newForm, setNewForm] = useState('');
+
   return (
     <div className="main-Container">
       <div className="header">
         <h1>Dynamic Form</h1>
         <button
           onClick={() => {
-            setModal(true);
+            setIsModal(true);
           }}
         >
           Create +
         </button>
       </div>
       <div className="form-list">
-        <div className="form">
-          <span>
-            <SiGoogleforms />
-          </span>
-          <h3>jdkdklsjdkasjdkjk</h3>
-        </div>
+        {formData?.map((form, index) => {
+          return (
+            <div className="form" key={index}>
+              <span>
+                <SiGoogleforms />
+              </span>
+              <h3>{form.FileName}</h3>
+            </div>
+          );
+        })}
       </div>
-      {modal && (
+      {isModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div>
@@ -36,16 +42,25 @@ const Dashboard = () => {
               <span>
                 <IoMdClose
                   onClick={() => {
-                    setModal(false);
+                    setIsModal(false);
                   }}
                 />
               </span>
             </div>
-            <input type="text" name="name" placeholder="enter name " />
+            <input
+              type="text"
+              name="name"
+              placeholder="enter name "
+              onChange={(event) => {
+                setNewForm(event.target.value);
+              }}
+            />
             <button
               onClick={() => {
-                setModal(false);
-                navigate('/dashboard/form');
+                setIsModal(false);
+                const newData = formData?.push({ FileName: newForm });
+                localStorage.setItem('dynamicForm', JSON.stringify(formData));
+                navigate('/dashboard/form', { state: newForm });
               }}
             >
               submit

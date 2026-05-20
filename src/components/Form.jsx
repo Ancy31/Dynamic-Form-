@@ -3,12 +3,16 @@ import '../styles/components/form.scss';
 import { fields } from '../constants/form';
 import { IconBase } from 'react-icons';
 import { MdOutlineTableRows } from 'react-icons/md';
+import { useLocation } from 'react-router-dom';
 
 const Form = () => {
+  const location = useLocation();
+  const formName = location?.state;
+
   return (
     <div>
       <div className="header">
-        <h1>Form Name </h1>
+        <h1>{formName}</h1>
         <div className="button-Container">
           <button>Save</button>
           <button>Cancel</button>
@@ -20,16 +24,15 @@ const Form = () => {
             return (
               <div className="fields" key={index}>
                 <p>{field?.name}</p>
-                <span>{field?.icon}
-                </span>
+                <span>{field?.icon}</span>
               </div>
             );
           })}
         </div>
         <div className="canvas-container"></div>
         <div className="preview-container">
-          <div className='mobile-container'>
-            <div className='mobile-header'></div>
+          <div className="mobile-container">
+            <div className="mobile-header"></div>
           </div>
         </div>
       </div>

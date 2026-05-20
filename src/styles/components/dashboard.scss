@@ -9,8 +9,8 @@
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  background-color: #2f3b58;
-  color: aliceblue;
+  background-color: #1976d231;
+  color: #052b51;
   padding: 12px;
   h1 {
     margin: 0;
@@ -22,6 +22,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 30px;
   .form {
     display: flex;
     padding: 10px;
@@ -30,15 +31,10 @@
     width: fit-content;
     border-radius: 20px;
     background-color: #f5f6f726;
-
     flex-wrap: wrap;
     align-items: center;
     span {
-      // width: 100px;
-      // height: 100px;
-      // box-shadow: 3px 3px 5px rgba(76, 76, 76, 0.57);
-      // border-radius: 50%;
-      color: #d97706;
+      color: #066cd9;
       font-size: 40px;
     }
     h3 {
@@ -50,26 +46,7 @@
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
   .modal-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: '10px';
-    background: rgb(56, 61, 90);
-    color: #f4f4f4;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     div {
       display: flex;
       flex-direction: row;
@@ -89,10 +66,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 400px;
     padding: 10px;
-    border: 2px solid #1b67d2;
     margin: 30px 0;
-  }
-  button {
-    width: fit-content;
   }
 }
