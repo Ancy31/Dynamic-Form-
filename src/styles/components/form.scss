@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  background-color: #1f2160;
-  color: #ffff;
+  background-color: #83a9cc31;
+  color: #052b51;
   padding: 20px;
   h1 {
     margin: 0;
@@ -19,10 +19,10 @@
 .main-container {
   display: grid;
   grid-template-columns: 2fr 4fr 2fr;
-  padding: 20px;
+  padding: 12px;
   gap: 20px;
-  background-color: #9ab7e05a;
-  height: 87.2vh;
+  background-color: #9ab7e0ef;
+  height: 88.7vh;
 }
 .fields-container {
   gap: 20px;
@@ -50,12 +50,36 @@
 }
 .canvas-container {
   background-color: #f9f9f9;
+  overflow: scroll;
+  max-height: 86.5vh;
+}
+
+.field-Container {
+  padding: 15px;
+  margin: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  // justify-content: space-evenly;
+  gap: 20px;
+  label {
+    font-size: 19px;
+    padding-left: 10px;
+  }
+
+  span {
+    font-size: 24px;
+    color: red;
+    padding: 10px;
+  }
 }
 .preview-container {
   .mobile-container {
     border: 10px solid #1f2160;
-    height: 80vh;
+    height: 84vh;
     border-radius: 30px;
+    background-color: #f9f9f9;
     .mobile-header {
       background-color: #1f2160;
       position: relative;

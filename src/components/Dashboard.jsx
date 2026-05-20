@@ -4,6 +4,7 @@ import hero from '../assets/hero.jfif';
 import { IoMdClose } from 'react-icons/io';
 import { SiGoogleforms } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';
+import Button from '../pages/Button';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
@@ -14,13 +15,12 @@ const Dashboard = () => {
     <div className="main-Container">
       <div className="header">
         <h1>Dynamic Form</h1>
-        <button
+        <Button
+          value="Create +"
           onClick={() => {
             setIsModal(true);
           }}
-        >
-          Create +
-        </button>
+        />
       </div>
       <div className="form-list">
         {formData?.map((form, index) => {
@@ -55,16 +55,15 @@ const Dashboard = () => {
                 setNewForm(event.target.value);
               }}
             />
-            <button
+            <Button
+              value="Create Form"
               onClick={() => {
                 setIsModal(false);
                 const newData = formData?.push({ FileName: newForm });
                 localStorage.setItem('dynamicForm', JSON.stringify(formData));
                 navigate('/dashboard/form', { state: newForm });
               }}
-            >
-              submit
-            </button>
+            />
           </div>
         </div>
       )}
