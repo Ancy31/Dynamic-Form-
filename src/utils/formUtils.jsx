@@ -5,6 +5,7 @@ import MultiOptionField from '../components/MultiOptionField';
 import MediaPreviewField from '../components/MediaPreviewField';
 import MediaUploadField from '../components/MediaUploadField';
 import { fields } from '../constants/form';
+import '../styles/pages/form.scss';
 
 export const handleDrag = (event, index) => {
   event.dataTransfer.setData('text', index);
@@ -12,13 +13,11 @@ export const handleDrag = (event, index) => {
 
 export const dropItem = (event, setDroppedFields) => {
   event.preventDefault();
-  console.log(event);
   const data = event.dataTransfer.getData('text');
   const field = JSON.parse(data);
   const draggableField = fields[field];
   setDroppedFields((prev) => [...prev, { ...draggableField, id: Date.now() }]);
 };
-
 export const allowDrop = (event) => {
   event.preventDefault();
 };
@@ -34,17 +33,17 @@ export const renderFields = (item, updateField) => {
     case 'Date Time':
       return (
         <div>
-          <Input 
-            type="text" 
-            name={fieldType} 
-            placeholder={fieldType} 
+          <Input
+            type="text"
+            name={fieldType}
+            placeholder={fieldType}
             value={item.label || ''}
             onChange={(e) => updateField(item.id, { label: e.target.value })}
           />
         </div>
       );
-    case 'Checkbox':
-    case 'Radio':
+    case 'checkbox':
+    case 'radio':
     case 'Dropdown':
       return <MultiOptionField item={item} updateField={updateField} />;
     case 'Image':
@@ -57,54 +56,39 @@ export const renderFields = (item, updateField) => {
 };
 
 export const renderPreviewField = (field) => {
+  console.log(field);
   const fieldType = field.name;
-  const inputStyle = { width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #d1d5db', boxSizing: 'border-box', outline: 'none' };
 
   switch (fieldType) {
     case 'Textfield':
-      return <Input type="text" placeholder={field.label || fieldType} style={inputStyle} />;
+      return <Input type="text" placeholder={fieldType} className="inputStyle" />;
     case 'Number':
-      return <Input type="number" placeholder={field.label || fieldType} style={inputStyle} />;
+      return <Input type="number" placeholder={fieldType} className="inputStyle" />;
     case 'Date':
-      return <Input type="date" style={inputStyle} />;
+      return <Input type="date" className="inputStyle" />;
     case 'Multiline':
-      return <textarea placeholder={field.label || fieldType} style={{ ...inputStyle, minHeight: '80px', resize: 'vertical' }} />;
-    case 'FileUpload':
-      return <Input type="file" style={inputStyle} />;
-    case 'Date Time':
-      return <Input type="datetime-local" style={inputStyle} />;
-    case 'Checkbox':
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {field.options?.length > 0 ? (
-            field.options.map((opt) => (
-              <div key={opt.id} style={{ display: 'flex', alignItems: 'center' }}>
-                <Input type="checkbox" style={{ marginRight: '8px', width: '16px', height: '16px' }} /> 
-                <label style={{ color: '#555' }}>{opt.value || 'Option'}</label>
-              </div>
-            ))
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Input type="checkbox" style={{ marginRight: '8px', width: '16px', height: '16px' }} /> 
-              <label style={{ color: '#555' }}>Option</label>
-            </div>
-          )}
-        </div>
+        <textarea placeholder={fieldType} className="inputStyle" style={{ minHeight: '80px' }} />
       );
-    case 'Radio':
+    case 'FileUpload':
+      return <Input type="file" className={inputStyle} />;
+    case 'Date Time':
+      return <Input type="datetime-local" className={inputStyle} />;
+    case 'checkbox':
+    case 'radio':
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {field.options?.length > 0 ? (
-            field.options.map((opt) => (
-              <div key={opt.id} style={{ display: 'flex', alignItems: 'center' }}>
-                <Input type="radio" name={`radio-${field.id}`} style={{ marginRight: '8px', width: '16px', height: '16px' }} /> 
-                <label style={{ color: '#555' }}>{opt.value || 'Option'}</label>
+        <div className="optional-fields">
+          {field?.options?.length > 0 ? (
+            field?.options.map((opt) => (
+              <div key={opt?.id} className="options">
+                <Input type={fieldType} />
+                <label >{opt?.value || 'Option'}</label>
               </div>
             ))
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Input type="radio" style={{ marginRight: '8px', width: '16px', height: '16px' }} /> 
-              <label style={{ color: '#555' }}>Option</label>
+            <div className="options">
+              <Input type={fieldType} />
+              <label>Option</label>
             </div>
           )}
         </div>
@@ -114,7 +98,9 @@ export const renderPreviewField = (field) => {
         <select style={inputStyle}>
           {field.options?.length > 0 ? (
             field.options.map((opt) => (
-              <option key={opt.id} value={opt.value}>{opt.value || 'Option'}</option>
+              <option key={opt.id} value={opt.value}>
+                {opt.value || 'Option'}
+              </option>
             ))
           ) : (
             <option>Select Option</option>

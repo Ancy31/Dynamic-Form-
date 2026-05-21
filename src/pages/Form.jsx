@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/pages/form.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import FieldPalette from '../components/FieldPalette';
+import Field from '../components/Field';
 import Canvas from '../components/Canvas';
 import Preview from '../components/Preview';
 
@@ -38,7 +38,7 @@ const Form = () => {
         </div>
       </div>
       <div className="main-container">
-        <FieldPalette />
+        <Field />
         <Canvas
           droppedFields={droppedFields}
           setDroppedFields={setDroppedFields}

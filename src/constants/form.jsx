@@ -14,11 +14,11 @@ export const fields = [
     icon: <GoNumber />,
   },
   {
-    name: 'Checkbox',
+    name: 'checkbox',
     icon: <IoIosCheckbox />,
   },
   {
-    name: 'Radio',
+    name: 'radio',
     icon: <IoIosRadioButtonOn />,
   },
   {

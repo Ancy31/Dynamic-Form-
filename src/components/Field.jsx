@@ -2,7 +2,7 @@ import React from 'react';
 import { fields } from '../constants/form';
 import { handleDrag } from '../utils/formUtils';
 
-const FieldPalette = () => {
+const Field = () => {
   return (
     <div className="fields-container">
       {fields?.map((field, index) => {
@@ -22,4 +22,4 @@ const FieldPalette = () => {
   );
 };
 
-export default FieldPalette;
+export default Field;
