@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
 
 export const NotFound = () => {
   const navigate = useNavigate();
-  const [isModal, setIsModal] = useState(false);
 
   return (
     <div className="modal-overlay">
@@ -17,14 +16,12 @@ export const NotFound = () => {
         <p>
           Looks like you’ve followed a broken link or entered a URL that doesn’t exist on this site.
         </p>
-        <button
+        <Button
+          value=" Go Back"
           onClick={() => {
-            setIsModal(false);
             navigate(-1);
           }}
-        >
-          Go Back
-        </button>
+        />
       </div>
     </div>
   );

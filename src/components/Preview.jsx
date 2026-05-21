@@ -1,7 +1,6 @@
-import React from 'react';
 import { renderPreviewField } from '../utils/formUtils';
 
-const Preview = ({ droppedFields }) => {
+const Preview = ({ droppedFields, isViewMode }) => {
   return (
     <div className="preview-container">
       <div className="mobile-container">
@@ -9,7 +8,7 @@ const Preview = ({ droppedFields }) => {
         {droppedFields?.map((field, index) => (
           <div key={`preview-${index}`} className="preview-item">
             <label className="preview-item-label">{field.label || field.name}</label>
-            {renderPreviewField(field)}
+            {renderPreviewField(field, isViewMode)}
           </div>
         ))}
       </div>

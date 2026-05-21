@@ -1,5 +1,3 @@
-import React from 'react';
-import Button from '../components/Button';
 import Input from '../components/Input';
 import MultiOptionField from '../components/MultiOptionField';
 import MediaPreviewField from '../components/MediaPreviewField';
@@ -22,8 +20,8 @@ export const allowDrop = (event) => {
   event.preventDefault();
 };
 
-export const renderFields = (item, updateField) => {
-  const fieldType = item.name;
+export const renderFields = (item, updateField, isViewMode) => {
+  const fieldType = item?.name;
   switch (fieldType) {
     case 'Textfield':
     case 'Number':
@@ -38,56 +36,71 @@ export const renderFields = (item, updateField) => {
             name={fieldType}
             placeholder={fieldType}
             value={item.label || ''}
-            onChange={(e) => updateField(item.id, { label: e.target.value })}
+            isViewMode={isViewMode}
+            onChange={(e) => updateField(item?.id, { label: e?.target?.value })}
           />
         </div>
       );
     case 'checkbox':
     case 'radio':
     case 'Dropdown':
-      return <MultiOptionField item={item} updateField={updateField} />;
+      return <MultiOptionField item={item} updateField={updateField} isViewMode={isViewMode} />;
     case 'Image':
     case 'Audio':
     case 'Video':
-      return <MediaUploadField item={item} updateField={updateField} />;
+      return <MediaUploadField item={item} updateField={updateField} isViewMode={isViewMode} />;
     default:
       return <div>No Field type Found</div>;
   }
 };
 
-export const renderPreviewField = (field) => {
-  console.log(field);
-  const fieldType = field.name;
+export const renderPreviewField = (field, isViewMode) => {
+  // console.log(field);
+  const fieldType = field?.name;
 
   switch (fieldType) {
     case 'Textfield':
-      return <Input type="text" placeholder={fieldType} className="inputStyle" />;
+      return (
+        <Input type="text" placeholder={fieldType} className="inputStyle" isViewMode={isViewMode} />
+      );
     case 'Number':
-      return <Input type="number" placeholder={fieldType} className="inputStyle" />;
+      return (
+        <Input
+          type="number"
+          placeholder={fieldType}
+          className="inputStyle"
+          isViewMode={isViewMode}
+        />
+      );
     case 'Date':
-      return <Input type="date" className="inputStyle" />;
+      return <Input type="date" className="inputStyle" isViewMode={isViewMode} />;
     case 'Multiline':
       return (
-        <textarea placeholder={fieldType} className="inputStyle" style={{ minHeight: '80px' }} />
+        <textarea
+          placeholder={fieldType}
+          className="inputStyle"
+          style={{ minHeight: '80px' }}
+          disabled={isViewMode}
+        />
       );
     case 'FileUpload':
-      return <Input type="file" className={inputStyle} />;
+      return <Input type="file" className="inputStyle" isViewMode={isViewMode} />;
     case 'Date Time':
-      return <Input type="datetime-local" className={inputStyle} />;
+      return <Input type="datetime-local" className="inputStyle" isViewMode={isViewMode} />;
     case 'checkbox':
     case 'radio':
       return (
         <div className="optional-fields">
           {field?.options?.length > 0 ? (
-            field?.options.map((opt) => (
+            field?.options?.map((opt) => (
               <div key={opt?.id} className="options">
-                <Input type={fieldType} />
-                <label >{opt?.value || 'Option'}</label>
+                <Input type={fieldType} isViewMode={isViewMode} />
+                <label>{opt?.value || 'Option'}</label>
               </div>
             ))
           ) : (
             <div className="options">
-              <Input type={fieldType} />
+              <Input type={fieldType} isViewMode={isViewMode} />
               <label>Option</label>
             </div>
           )}
@@ -95,7 +108,7 @@ export const renderPreviewField = (field) => {
       );
     case 'Dropdown':
       return (
-        <select style={inputStyle}>
+        <select className="inputStyle">
           {field.options?.length > 0 ? (
             field.options.map((opt) => (
               <option key={opt.id} value={opt.value}>

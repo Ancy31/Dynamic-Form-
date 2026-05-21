@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import Input from './Input';
 import Button from './Button';
 
-const MediaUploadField = ({ item, updateField }) => {
+const MediaUploadField = ({ item, updateField,isViewMode }) => {
   const fileInputRef = useRef(null);
   const type = item.name;
 
@@ -27,16 +27,18 @@ const MediaUploadField = ({ item, updateField }) => {
         name={type}
         placeholder={type}
         value={item.label || ''}
+        disabled={isViewMode}
         onChange={(e) => updateField(item.id, { label: e.target.value })}
         style={{ marginBottom: '10px' }}
       />
       <div>
-        <input 
-          type="file" 
-          accept={`${type.toLowerCase()}/*`} 
-          style={{ display: 'none' }} 
-          ref={fileInputRef} 
-          onChange={handleUpload} 
+        <input
+          type="file"
+          accept={`${type.toLowerCase()}/*`}
+          style={{ display: 'none' }}
+          ref={fileInputRef}
+          disabled={isViewMode}
+          onChange={handleUpload}
         />
         <Button value={`Upload ${type}`} onClick={triggerUpload} />
       </div>

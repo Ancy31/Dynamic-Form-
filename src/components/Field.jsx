@@ -1,8 +1,7 @@
-import React from 'react';
 import { fields } from '../constants/form';
 import { handleDrag } from '../utils/formUtils';
 
-const Field = () => {
+const Field = ({ viewMode }) => {
   return (
     <div className="fields-container">
       {fields?.map((field, index) => {
@@ -10,7 +9,7 @@ const Field = () => {
           <div
             className="fields"
             key={index}
-            draggable="true"
+            draggable={viewMode ? 'false' : 'true'}
             onDragStart={(event) => handleDrag(event, index)}
           >
             <p>{field?.name}</p>

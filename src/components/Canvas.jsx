@@ -1,9 +1,9 @@
-import React from 'react';
 import { dropItem, allowDrop, renderFields, handleDelete } from '../utils/formUtils';
 import Input from './Input';
 import { MdDelete } from 'react-icons/md';
 
-const Canvas = ({ droppedFields, setDroppedFields, updateField }) => {
+const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
+  console.log(viewId);
   return (
     <div
       className="canvas-container"
@@ -14,26 +14,42 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField }) => {
       {droppedFields?.map((item, index) => (
         <div key={index} className="field-Container">
           <div className="field-info">
-            {item?.icon}
-            <label>{item?.name}:</label>
+            {item?.required}
+            <label>{item?.name || item?.label}:</label>
           </div>
-          <div className="field-render">
-            {renderFields(item, updateField)}
-          </div>
+          <div className="field-render">{renderFields(item, updateField, viewId)}</div>
           {!['Image', 'Video', 'Audio'].includes(item?.name) && (
             <div className="field-required">
-              <Input type="checkbox" name="required" value="yes" />
+              <Input
+                className="inputStyle"
+                type="checkbox"
+                name="required"
+                checked={item?.required || false}
+                onChange={(e) => {
+                  const isChecked = e.target.checked;
+                  setDroppedFields((prev) =>
+                    prev.map((field, fIndex) =>
+                      (item.id && field.id === item.id) || fIndex === index
+                        ? { ...field, required: isChecked }
+                        : field,
+                    ),
+                  );
+                }}
+                isViewMode={viewId}
+              />
               <label>Required</label>
             </div>
           )}
 
           <span
             onClick={() => {
-              handleDelete(index, setDroppedFields);
+              !viewId ? handleDelete(index, setDroppedFields) : {};
             }}
+            style={{ cursor: viewId ? 'not-allowed' : 'pointer' }}
           >
-            <MdDelete />
+            <MdDelete color={viewId ? 'gray' : 'red'} />
           </span>
+          {/* {console.log(item?.required)} */}
         </div>
       ))}
     </div>

@@ -1,9 +1,9 @@
-import React from 'react';
-
-const Button = ({ onClick, value = 'submit' }) => {
+const Button = ({ onClick, value = 'submit', isViewMode }) => {
   return (
     <div>
-      <button onClick={onClick}>{value}</button>
+      <button onClick={onClick} disabled={isViewMode}>
+        {value}
+      </button>
     </div>
   );
 };
