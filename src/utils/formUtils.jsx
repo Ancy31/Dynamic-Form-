@@ -101,7 +101,6 @@ export const renderFields = (item, updateField, isViewMode) => {
 
 export const renderPreviewField = (field, isViewMode) => {
   const fieldType = field?.name;
-
   switch (fieldType) {
     case 'Textfield':
       return (

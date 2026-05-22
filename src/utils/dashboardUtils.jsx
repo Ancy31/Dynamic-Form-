@@ -1,3 +1,5 @@
+import { ROUTE_PATHS } from '../routes/routes';
+
 export const handleDeleteForm = (index, e, forms, setForms, setActiveTooltip) => {
   e.stopPropagation();
   const newForms = forms.filter((_, i) => i !== index);
@@ -8,14 +10,14 @@ export const handleDeleteForm = (index, e, forms, setForms, setActiveTooltip) =>
 
 export const handleEditForm = (form, index, e, navigate) => {
   e.stopPropagation();
-  navigate(`/dashboard/form?editId=${index}&playAction="Edit"`, {
+  navigate(`${ROUTE_PATHS?.FORM}?editId=${index}&playAction="Edit"`, {
     state: { FileName: form.FileName },
   });
 };
 
 export const handleViewDetails = (form, index, e, navigate, setActiveTooltip) => {
   e.stopPropagation();
-  navigate(`/dashboard/form?viewId=${index}&playAction="View"`, { 
+  navigate(`${ROUTE_PATHS?.FORM}?viewId=${index}&playAction="View"`, {
     state: { FileName: form.FileName },
   });
   setActiveTooltip(null);
@@ -29,6 +31,6 @@ export const handleFormCreation = (newForm, forms, setForms, setIsModal, navigat
     const newFormsList = [...forms, { FileName: newForm }];
     setForms(newFormsList);
     localStorage.setItem('dynamicForm', JSON.stringify(newFormsList));
-    navigate('/dashboard/form', { state: { FileName: newForm } });
+    navigate(`${ROUTE_PATHS?.FORM}`, { state: { FileName: newForm } });
   }
 };

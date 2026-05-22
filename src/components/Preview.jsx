@@ -7,10 +7,14 @@ const Preview = ({ droppedFields, isViewMode }) => {
         <div className="mobile-header"></div>
         {droppedFields?.map((field, index) => (
           <div key={`preview-${index}`} className="preview-item">
-            <label className="preview-item-label">{field.label || field.name}</label>
+            <label className="preview-item-label">
+              {field.label || field.name}
+              {field?.required && <span style={{ color: 'red' }}> *</span>}
+            </label>
             {renderPreviewField(field, isViewMode)}
           </div>
         ))}
+        {console.log(droppedFields)}
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ const Form = () => {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setDroppedFields(existingFields);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editId, viewId]);
 
   const updateField = (id, updatedProperties) => {
@@ -44,7 +45,7 @@ const Form = () => {
         fields: droppedFields,
       };
     } else {
-      const existingFormIndex = modifiedFormDetails.findIndex((form) => form.FileName === formName);
+      const existingFormIndex = modifiedFormDetails?.length - 1;
       if (existingFormIndex !== -1) {
         modifiedFormDetails[existingFormIndex].fields = droppedFields;
       }

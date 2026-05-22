@@ -1,12 +1,12 @@
-import { dashboard, form } from './routes';
+import { dashboard, form, ROUTE_PATHS } from './routes';
 
 export const APP_ROUTES = [
   {
-    path: '/',
+    path:ROUTE_PATHS?.DASHBOARD,
     element: dashboard,
   },
   {
-    path: '/dashboard/form',
+    path: ROUTE_PATHS?.FORM,
     element: form,
   },
 ];
