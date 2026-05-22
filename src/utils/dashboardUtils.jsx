@@ -16,7 +16,7 @@ export const handleEditForm = (form, index, e, navigate) => {
 export const handleViewDetails = (form, index, e, navigate, setActiveTooltip) => {
   e.stopPropagation();
   navigate(`/dashboard/form?viewId=${index}&playAction="View"`, { 
-    state: { FileName: form.FileName } 
+    state: { FileName: form.FileName },
   });
   setActiveTooltip(null);
 };

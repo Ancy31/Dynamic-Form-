@@ -42,7 +42,7 @@ export const handleCanvasDropItem = (event, targetIndex, setDroppedFields) => {
   event.preventDefault();
   event.stopPropagation();
   const canvasIndex = event.dataTransfer.getData('canvas-index');
-  
+
   if (canvasIndex !== '') {
     const sourceIndex = parseInt(canvasIndex, 10);
     setDroppedFields((prev) => {
@@ -100,7 +100,6 @@ export const renderFields = (item, updateField, isViewMode) => {
 };
 
 export const renderPreviewField = (field, isViewMode) => {
-  // console.log(field);
   const fieldType = field?.name;
 
   switch (fieldType) {

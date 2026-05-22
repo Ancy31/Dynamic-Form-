@@ -1,9 +1,15 @@
-import { dropItem, allowDrop, renderFields, handleDelete, handleCanvasDragStart, handleCanvasDropItem } from '../utils/formUtils';
+import {
+  dropItem,
+  allowDrop,
+  renderFields,
+  handleDelete,
+  handleCanvasDragStart,
+  handleCanvasDropItem,
+} from '../utils/formUtils';
 import Input from './Input';
 import { MdDelete } from 'react-icons/md';
 
 const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
-  console.log(viewId);
   return (
     <div
       className="canvas-container"
@@ -12,12 +18,14 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
       onDragOver={(event) => allowDrop(event)}
     >
       {droppedFields?.map((item, index) => (
-        <div key={item?.id || index} className="field-Container"
-             draggable={!viewId}
-             onDragStart={(event) => handleCanvasDragStart(event, index)}
-             onDragOver={allowDrop}
-             onDrop={(event) => handleCanvasDropItem(event, index, setDroppedFields)}
-             style={{ cursor: !viewId ? 'grab' : 'default' }}
+        <div
+          key={item?.id || index}
+          className="field-Container"
+          draggable={!viewId}
+          onDragStart={(event) => handleCanvasDragStart(event, index)}
+          onDragOver={allowDrop}
+          onDrop={(event) => handleCanvasDropItem(event, index, setDroppedFields)}
+          style={{ cursor: !viewId ? 'grab' : 'default' }}
         >
           <div className="field-info">
             {item?.required}
@@ -44,7 +52,9 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
                 }}
                 isViewMode={viewId}
               />
-              <label htmlFor={`required-${item?.id || index}`} style={{ cursor: 'pointer' }}>Required</label>
+              <label htmlFor={`required-${item?.id || index}`} style={{ cursor: 'pointer' }}>
+                Required
+              </label>
             </div>
           )}
 

@@ -5,7 +5,12 @@ import { SiGoogleforms } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import { handleDeleteForm, handleEditForm, handleViewDetails, handleFormCreation } from '../utils/dashboardUtils';
+import {
+  handleDeleteForm,
+  handleEditForm,
+  handleViewDetails,
+  handleFormCreation,
+} from '../utils/dashboardUtils';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -47,10 +52,16 @@ const Dashboard = () => {
                   >
                     Edit
                   </div>
-                  <div className="tooltip-item" onClick={(e) => handleViewDetails(form, index, e, navigate, setActiveTooltip)}>
+                  <div
+                    className="tooltip-item"
+                    onClick={(e) => handleViewDetails(form, index, e, navigate, setActiveTooltip)}
+                  >
                     View Details
                   </div>
-                  <div className="tooltip-item delete" onClick={(e) => handleDeleteForm(index, e, forms, setForms, setActiveTooltip)}>
+                  <div
+                    className="tooltip-item delete"
+                    onClick={(e) => handleDeleteForm(index, e, forms, setForms, setActiveTooltip)}
+                  >
                     Delete
                   </div>
                 </div>
@@ -80,7 +91,10 @@ const Dashboard = () => {
                 setNewForm(event.target.value);
               }}
             />
-            <Button value="Create Form" onClick={() => handleFormCreation(newForm, forms, setForms, setIsModal, navigate)} />
+            <Button
+              value="Create Form"
+              onClick={() => handleFormCreation(newForm, forms, setForms, setIsModal, navigate)}
+            />
           </div>
         </div>
       )}
