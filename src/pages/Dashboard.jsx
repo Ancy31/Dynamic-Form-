@@ -5,48 +5,14 @@ import { SiGoogleforms } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-// import '../utils/\'
+import { handleDeleteForm, handleEditForm, handleViewDetails, handleFormCreation } from '../utils/dashboardUtils';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
   const [forms, setForms] = useState(JSON.parse(localStorage.getItem('dynamicForm')) || []);
   const [newForm, setNewForm] = useState('');
   const [activeTooltip, setActiveTooltip] = useState(null);
-
-  const handleDeleteForm = (index, e) => {
-    e.stopPropagation();
-
-    const newForms = forms.filter((_, i) => i !== index);
-    setForms(newForms);
-    console.log(newForm, 'forms');
-    localStorage.setItem('dynamicForm', JSON.stringify(newForms));
-    setActiveTooltip(null);
-  };
-
-  const handleEditForm = (form, index, e) => {
-    e.stopPropagation();
-    navigate(`/dashboard/form?editId=${index}&playAction="Edit"`, {
-      state: { fileName: form.FileName },
-    });
-  };
-
-  const handleViewDetails = (form, index, e) => {
-    e.stopPropagation();
-    navigate(`/dashboard/form?viewId=${index}&playAction="View"`, { state: form.FileName });
-    setActiveTooltip(null);
-  };
-
-  const handleFormCreation = () => {
-    if (newForm == '') {
-      alert('Name is required');
-    } else {
-      setIsModal(false);
-      const newFormsList = [...forms, { FileName: newForm }];
-      setForms(newFormsList);
-      localStorage.setItem('dynamicForm', JSON.stringify(newFormsList));
-      navigate('/dashboard/form', { state: { FileName: newForm } });
-    }
-  };
 
   return (
     <div className="main-Container">
@@ -77,14 +43,14 @@ const Dashboard = () => {
                 <div className="tooltip-menu">
                   <div
                     className="tooltip-item"
-                    onClick={(e) => handleEditForm(forms[index], index, e)}
+                    onClick={(e) => handleEditForm(form, index, e, navigate)}
                   >
                     Edit
                   </div>
-                  <div className="tooltip-item" onClick={(e) => handleViewDetails(forms, index, e)}>
+                  <div className="tooltip-item" onClick={(e) => handleViewDetails(form, index, e, navigate, setActiveTooltip)}>
                     View Details
                   </div>
-                  <div className="tooltip-item delete" onClick={(e) => handleDeleteForm(index, e)}>
+                  <div className="tooltip-item delete" onClick={(e) => handleDeleteForm(index, e, forms, setForms, setActiveTooltip)}>
                     Delete
                   </div>
                 </div>
@@ -114,7 +80,7 @@ const Dashboard = () => {
                 setNewForm(event.target.value);
               }}
             />
-            <Button value="Create Form" onClick={() => handleFormCreation()} />
+            <Button value="Create Form" onClick={() => handleFormCreation(newForm, forms, setForms, setIsModal, navigate)} />
           </div>
         </div>
       )}

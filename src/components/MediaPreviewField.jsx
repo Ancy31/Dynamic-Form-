@@ -11,9 +11,9 @@ const MediaPreviewField = ({ field }) => {
     case 'Image':
       return <img src={mediaUrl || hero} alt="Preview" style={{ width: '100%' }} />;
     case 'Video':
-      return <video src={mediaUrl || defaultVideo} controls />;
+      return <video src={mediaUrl || defaultVideo} controls style={{ width: '100%' }} />;
     case 'Audio':
-      return <audio src={mediaUrl || defaultAudio} controls />;
+      return <audio src={mediaUrl || defaultAudio} controls style={{ width: '100%' }} />;
     default:
       return null;
   }

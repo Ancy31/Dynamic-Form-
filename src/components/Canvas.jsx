@@ -1,4 +1,4 @@
-import { dropItem, allowDrop, renderFields, handleDelete } from '../utils/formUtils';
+import { dropItem, allowDrop, renderFields, handleDelete, handleCanvasDragStart, handleCanvasDropItem } from '../utils/formUtils';
 import Input from './Input';
 import { MdDelete } from 'react-icons/md';
 
@@ -12,7 +12,13 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
       onDragOver={(event) => allowDrop(event)}
     >
       {droppedFields?.map((item, index) => (
-        <div key={index} className="field-Container">
+        <div key={item?.id || index} className="field-Container"
+             draggable={!viewId}
+             onDragStart={(event) => handleCanvasDragStart(event, index)}
+             onDragOver={allowDrop}
+             onDrop={(event) => handleCanvasDropItem(event, index, setDroppedFields)}
+             style={{ cursor: !viewId ? 'grab' : 'default' }}
+        >
           <div className="field-info">
             {item?.required}
             <label>{item?.name || item?.label}:</label>
@@ -21,6 +27,7 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
           {!['Image', 'Video', 'Audio'].includes(item?.name) && (
             <div className="field-required">
               <Input
+                id={`required-${item?.id || index}`}
                 className="inputStyle"
                 type="checkbox"
                 name="required"
@@ -37,7 +44,7 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
                 }}
                 isViewMode={viewId}
               />
-              <label>Required</label>
+              <label htmlFor={`required-${item?.id || index}`} style={{ cursor: 'pointer' }}>Required</label>
             </div>
           )}
 
@@ -49,7 +56,6 @@ const Canvas = ({ droppedFields, setDroppedFields, updateField, viewId }) => {
           >
             <MdDelete color={viewId ? 'gray' : 'red'} />
           </span>
-          {/* {console.log(item?.required)} */}
         </div>
       ))}
     </div>

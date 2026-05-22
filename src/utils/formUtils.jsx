@@ -11,13 +11,58 @@ export const handleDrag = (event, index) => {
 
 export const dropItem = (event, setDroppedFields) => {
   event.preventDefault();
-  const data = event.dataTransfer.getData('text');
-  const field = JSON.parse(data);
-  const draggableField = fields[field];
-  setDroppedFields((prev) => [...prev, { ...draggableField, id: Date.now() }]);
+  const canvasIndex = event.dataTransfer.getData('canvas-index');
+  if (canvasIndex !== '') {
+    const sourceIndex = parseInt(canvasIndex, 10);
+    setDroppedFields((prev) => {
+      const newFields = [...prev];
+      const [draggedItem] = newFields.splice(sourceIndex, 1);
+      newFields.push(draggedItem);
+      return newFields;
+    });
+  } else {
+    const data = event.dataTransfer.getData('text');
+    if (data !== '') {
+      const field = JSON.parse(data);
+      const draggableField = fields[field];
+      setDroppedFields((prev) => [...prev, { ...draggableField, id: Date.now() }]);
+    }
+  }
 };
+
 export const allowDrop = (event) => {
   event.preventDefault();
+};
+
+export const handleCanvasDragStart = (event, index) => {
+  event.dataTransfer.setData('canvas-index', index);
+};
+
+export const handleCanvasDropItem = (event, targetIndex, setDroppedFields) => {
+  event.preventDefault();
+  event.stopPropagation();
+  const canvasIndex = event.dataTransfer.getData('canvas-index');
+  
+  if (canvasIndex !== '') {
+    const sourceIndex = parseInt(canvasIndex, 10);
+    setDroppedFields((prev) => {
+      const newFields = [...prev];
+      const [draggedItem] = newFields.splice(sourceIndex, 1);
+      newFields.splice(targetIndex, 0, draggedItem);
+      return newFields;
+    });
+  } else {
+    const data = event.dataTransfer.getData('text');
+    if (data !== '') {
+      const field = JSON.parse(data);
+      const draggableField = fields[field];
+      setDroppedFields((prev) => {
+        const newFields = [...prev];
+        newFields.splice(targetIndex, 0, { ...draggableField, id: Date.now() });
+        return newFields;
+      });
+    }
+  }
 };
 
 export const renderFields = (item, updateField, isViewMode) => {

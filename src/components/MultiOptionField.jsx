@@ -1,5 +1,6 @@
 import Input from './Input';
 import Button from './Button';
+import { MdDelete } from 'react-icons/md';
 
 const MultiOptionField = ({ item, updateField, isViewMode }) => {
   const fieldType = item.name;
@@ -13,6 +14,12 @@ const MultiOptionField = ({ item, updateField, isViewMode }) => {
   const handleOptionChange = (id, newValue) => {
     updateField(item.id, {
       options: options.map((opt) => (opt.id === id ? { ...opt, value: newValue } : opt)),
+    });
+  };
+
+  const handleDeleteOption = (id) => {
+    updateField(item.id, {
+      options: options.filter((opt) => opt.id !== id),
     });
   };
 
@@ -32,7 +39,7 @@ const MultiOptionField = ({ item, updateField, isViewMode }) => {
       <Button value="Add Option +" onClick={addOption} isViewMode={isViewMode} />
 
       {options.map((option, index) => (
-        <div key={option.id} style={{ marginTop: '8px', marginLeft: '16px' }}>
+        <div key={option.id} style={{ marginTop: '8px', marginLeft: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Input
             type="text"
             name={`option-${index}`}
@@ -41,6 +48,14 @@ const MultiOptionField = ({ item, updateField, isViewMode }) => {
             isViewMode={isViewMode}
             onChange={(e) => handleOptionChange(option.id, e.target.value)}
           />
+          {!isViewMode && (
+            <span
+              onClick={() => handleDeleteOption(option.id)}
+              style={{ cursor: 'pointer', display: 'flex' }}
+            >
+              <MdDelete color="red" />
+            </span>
+          )}
         </div>
       ))}
     </div>
