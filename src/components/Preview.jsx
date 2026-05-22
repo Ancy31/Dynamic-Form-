@@ -14,7 +14,6 @@ const Preview = ({ droppedFields, isViewMode }) => {
             {renderPreviewField(field, isViewMode)}
           </div>
         ))}
-        {console.log(droppedFields)}
       </div>
     </div>
   );
